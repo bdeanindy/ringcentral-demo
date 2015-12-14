@@ -1,0 +1,10 @@
+*.swp
+*.swo
+*.log
+*.env
+.env
+
+node_modules
+npm-debug.log
+public/vendor
+bower_components

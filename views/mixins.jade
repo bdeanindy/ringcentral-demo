@@ -1,0 +1,7 @@
+//- Alert mixin
+mixin alert(style)
+  div( class=["alert", "alert-" + style], role="alert" )
+    button(type='button' class='btn btn-sm btn-default' data-toggle='modal' data-target='#rcDemoConfigModal')
+      i(class='fa fa-wrench')
+        strong Configure
+    block

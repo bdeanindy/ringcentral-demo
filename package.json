@@ -1,0 +1,45 @@
+{
+  "name": "ringcentral-demo-app",
+  "version": "0.1.0",
+  "description": "RingCentral Demo App",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdeanindy/ringcentral-demo-app.git"
+  },
+  "keywords": [
+    "RingCentral",
+    "events",
+    "webhook",
+    "ETL"
+  ],
+  "author": "Benjamin Dean",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bdeanindy/ringcentral-demo-app/issues"
+  },
+  "homepage": "https://github.com/bdeanindy/ringcentral-demo-app#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "bower": "^1.7.1",
+    "chai": "^3.4.1",
+    "cookie-parser": "^1.4.0",
+    "dotenv": "^1.2.0",
+    "expect": "^1.13.2",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "mocha": "^2.3.4",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0",
+    "sinon": "^1.17.2",
+    "superagent": "^1.5.0"
+  },
+  "devDependencies": {
+    "debug": "^2.2.0",
+    "expect.js": "^0.3.1"
+  }
+}

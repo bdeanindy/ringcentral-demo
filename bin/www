@@ -1,0 +1,155 @@
+#!/usr/bin/env node
+
+/**
+ * Load local environment variables from .env file in root of app
+ */
+
+require('dotenv').load();
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('rc-eventrusion:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ * Responsible for establishing connection to RingCentral to receive events.
+ */
+
+var server = http.createServer(app); // app is the request listener
+var serverShutdown = false;
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+function onBoot() {
+  serverShutdown = false;
+  server.listen(app.get('port'), function() {
+    server.on('error', onError);
+    server.on('listening', onListening);
+    server.on('connection', onConnection);
+    server.on('shutdown', onShutdown);
+    server.on('close', onClose);
+  });
+}
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server 'close' event.
+ */
+
+function onClose(server) {
+  server.removeListener('error', onError);
+  server.removeListener('listening', onListening);
+  server.removeListener('connection', onConnection);
+  server.removeListener('shutdown', onShutdown);
+  server.removeListener('close', onClose);
+  return console.info('Server is closed');
+}
+
+
+/**
+ * Event listener for HTTP server 'connect' event.
+ */
+
+function onConnection(socket) {
+  console.log('New connection made');
+  //console.log('Connection Socket instance: ', socket);
+}
+
+
+/**
+ * Event listener for HTTP server 'shutdown' event.
+ */
+
+function onShutdown(server) {
+  if( isShutdown ) {
+    return console.log('Server already shutdown');
+  } else {
+    serverShutdown = true;
+    server.close(function(err) {
+      this.off('error', onError);
+      this.off('listening', onListening);
+      this.off('shutdown', onShutdown);
+    });
+  }
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+if( require.main === module) {
+  onBoot();
+} else {
+  console.info('Running app as a module');
+  exports.boot = onBoot;
+  exports.shutdown = onShutdown;
+  exports.port = app.get('port');
+}
