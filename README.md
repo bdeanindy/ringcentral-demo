@@ -9,7 +9,7 @@ This repository contains a template app for RingCentral demo apps. It can be use
 * Bower.js
 * Express.js
 
-### Getting Started
+### Installation
 
 * Fork this repository into your Github account
 * Create a new directory which will contain your new demo
@@ -28,6 +28,20 @@ This repository contains a template app for RingCentral demo apps. It can be use
     ```
     bower install
     ```
+### Configuration
+You will need to provide some configuration constants for the application. The demo app is configured to use the `dotenv` module.
+
+Create a file in the root of the demo app named `.env`.
+
+**Required Environment Variables**
+```
+# RING CENTRAL API KEYS
+RC_APP_ENV=sandbox
+RC_APP_KEY=<YOUR_APP_KEY>
+RC_APP_SECRET=<YOUR_APP_SECRET>
+```
+
+NOTE: The `.gitignore` file which comes with this demo app is set to ignore this environment variable file. It is highly recommended that you do not change this to prevent committing your API keys into your repository's history.
 
 ### Running Locally
 
@@ -35,11 +49,15 @@ This repository contains a template app for RingCentral demo apps. It can be use
 npm start
 ```
 
+Open your browser of choice, and visit: [http://localhost:3000](http://localhost:3000)
+
 ### Running Tests
 
 ```
 npm test
 ```
+
+If you would like to change the test runner, you can easily do so by modifying the `package.json.script.test` value and `npm uninstall --save mocha` followed by installing any test runner module you like.
 
 ## Issues &amp; Contributing
 Before adding new issues, please review the issue tracker to make sure they haven't already been reported.
