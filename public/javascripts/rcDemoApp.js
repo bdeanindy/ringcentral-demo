@@ -40,4 +40,25 @@ $(function() {
       console.log( 'MSG: ', msg );
     })
   });
+
+  var $openSSO = $('#openSSO');
+  $openSSO.on('click', function( evt ) {
+    $.get('oauth/url', function() {
+    })
+    .done(function( data ) {
+      data = JSON.parse(data);
+      console.log( '/oauth/url success: ', data );
+      window.open(data.url, '_self');
+      window.close();
+    })
+    .fail(function( data ) {
+      console.log( '/oauth/url fail: ', data );
+      console.log( 'full args: ', arguments );
+    })
+    .always(function( data ) {
+      console.log( '/oauth/url response: ', data );
+      console.log( 'full args: ', arguments );
+    });
+  });
+
 });

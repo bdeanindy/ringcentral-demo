@@ -1,0 +1,10 @@
+include mixins
+extends layout
+
+block content
+
+    <script type="text/javascript">
+      window.parent &&
+      window.parent.authorize &&
+      window.parent.authorize();
+    </script>

@@ -3,6 +3,8 @@
 // Dependencies
 var express = require('express');
 var router = express.Router();
+var RCAuth = require('./RingCentralAuthorize');
+
 // TODO: Add abstraction layer for persisting data
 //var mongoose = require('mongoose');
 
@@ -42,5 +44,13 @@ router.get('/', function( req, res ) {
     title: 'RingCentral Demo App'
   });
 });
+
+router.get('/dashboard', function( req, res ) {
+  res.render('dashboard', {
+    title: 'RingCentral User Dashboard'
+  });
+});
+
+router.use('/oauth', RCAuth);
 
 module.exports = router;
