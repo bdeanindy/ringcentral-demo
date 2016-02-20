@@ -39,6 +39,10 @@ Create a file in the root of the demo app named `.env`.
 RC_APP_ENV=sandbox
 RC_APP_KEY=<YOUR_APP_KEY>
 RC_APP_SECRET=<YOUR_APP_SECRET>
+RC_APP_NAME=<YOUR_APP_NAME>
+RC_API_SERVER=https://platform.devtest.ringcentral.com
+RC_APP_REDIRECT_URI=http://localhost:3000/oauth/redirect
+RC_APP_AUTH_STATE=<SOME_RANDOM_INVALIDATION_STRING>
 ```
 
 NOTE: The `.gitignore` file which comes with this demo app is set to ignore this environment variable file. It is highly recommended that you do not change this to prevent committing your API keys into your repository's history.
